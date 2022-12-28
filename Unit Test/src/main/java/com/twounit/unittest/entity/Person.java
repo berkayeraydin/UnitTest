@@ -25,20 +25,20 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @ToString
-public class Kisi {
+public class Person {
 
     @Id
-    @SequenceGenerator(name = "seq_kisi", allocationSize = 1)
-    @GeneratedValue(generator = "seq_kisi", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "seq_person", allocationSize = 1)
+    @GeneratedValue(generator = "seq_person", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(length = 100, name = "adi")
-    private String adi;
+    @Column(length = 100, name = "name")
+    private String name;
 
-    @Column(length = 100, name = "soyadi")
-    private String soyadi;
+    @Column(length = 100, name = "lastName")
+    private String lastName;
 
     @OneToMany
-    @JoinColumn(name = "kisi_adres_id")
-    private List<Adres> adresleri;
+    @JoinColumn(name = "person_address_id")
+    private List<Address> addresses;
 }

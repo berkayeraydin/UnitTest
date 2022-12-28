@@ -1,6 +1,6 @@
 package com.twounit.unittest.controller;
 
-import com.twounit.unittest.dto.KisiDto;
+import com.twounit.unittest.dto.PersonDto;
 import com.twounit.unittest.service.KisiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +12,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/kisi")
 @RequiredArgsConstructor
-public class KisiController {
+public class PersonController {
 
     private final KisiService kisiService;
 
     @PostMapping
-    public ResponseEntity<KisiDto> kaydet(@Valid @RequestBody KisiDto kisiDto) {
-        return ResponseEntity.ok(kisiService.save(kisiDto));
+    public ResponseEntity<PersonDto> kaydet(@Valid @RequestBody PersonDto personDto) {
+        return ResponseEntity.ok(kisiService.save(personDto));
     }
 
     @GetMapping
-    public ResponseEntity<List<KisiDto>> tumunuListele() {
+    public ResponseEntity<List<PersonDto>> tumunuListele() {
         return ResponseEntity.ok(kisiService.getAll());
     }
 }

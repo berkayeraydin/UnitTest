@@ -26,29 +26,29 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @ToString
-public class Adres implements Serializable {
+public class Address implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "seq_kisi_adres", allocationSize = 1)
-    @GeneratedValue(generator = "seq_kisi_adres", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "seq_person_address", allocationSize = 1)
+    @GeneratedValue(generator = "seq_person_address", strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(length = 500, name = "adres")
-    private String adres;
+    @Column(length = 500, name = "address")
+    private String address;
 
     @Enumerated
-    private AdresTip adresTip;
+    private AddressType addressType;
 
-    @Column(name = "aktif")
-    private Boolean aktif;
+    @Column(name = "active")
+    private Boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "kisi_adres_id")
-    private Kisi kisi;
+    @JoinColumn(name = "person_address_id")
+    private Person person;
 
-    public enum AdresTip {
-        EV_ADRESI,
-        IS_ADRESI,
-        DIGER
+    public enum AddressType {
+        HOME_ADDRESS,
+        WORK_ADDRESS,
+        OTHER
     }
 }

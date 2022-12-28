@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import com.twounit.unittest.dto.KisiDto;
-import com.twounit.unittest.entity.Adres;
-import com.twounit.unittest.entity.Kisi;
-import com.twounit.unittest.repo.AdresRepository;
-import com.twounit.unittest.repo.KisiRepository;
+import com.twounit.unittest.dto.PersonDto;
+import com.twounit.unittest.entity.Address;
+import com.twounit.unittest.entity.Person;
+import com.twounit.unittest.repo.AddressRepository;
+import com.twounit.unittest.repo.PersonRepository;
 import com.twounit.unittest.service.KisiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,38 +22,35 @@ import org.springframework.util.Assert;
 @RequiredArgsConstructor
 public class KisiServiceImpl implements KisiService {
 
-    private final KisiRepository kisiRepository;
-    private final AdresRepository adresRepository;
+    private final PersonRepository personRepository;
+    private final AddressRepository addressRepository;
 
     @Override
     @Transactional
-    public KisiDto save(KisiDto kisiDto) {
-        //Assert.notNull(kisiDto.getAdi(), "Adi alani zorunludur!");
+    public PersonDto save(PersonDto personDto) {
+        Assert.notNull(personDto.getName(), "Adi alani zorunludur!");
 
-        if (Objects.isNull(kisiDto)) {
+        if (Objects.isNull(personDto)) {
             throw new NullPointerException();
         }
 
-        if (kisiDto.getAdi() == null) {
-            throw new NullPointerException();
-        }
-        Kisi kisi = new Kisi();
-        kisi.setAdi(kisiDto.getAdi());
-        kisi.setSoyadi(kisiDto.getSoyadi());
-        final  Kisi kisiDb = kisiRepository.save(kisi);
+        Person person = new Person();
+        person.setName(personDto.getName());
+        person.setLastName(personDto.getLastName());
+        final Person personDb = personRepository.save(person);
 
-        List<Adres> liste = new ArrayList<>();
-        kisiDto.getAdresler().forEach(item -> {
-            Adres adres = new Adres();
-            adres.setAdres(item);
-            adres.setAdresTip(Adres.AdresTip.DIGER);
-            adres.setAktif(true);
-            adres.setKisi(kisiDb);
-            liste.add(adres);
+        List<Address> liste = new ArrayList<>();
+        personDto.getAddresses().forEach(item -> {
+            Address address = new Address();
+            address.setAddress(item);
+            address.setAddressType(Address.AddressType.OTHER);
+            address.setActive(true);
+            address.setPerson(personDb);
+            liste.add(address);
         });
-        adresRepository.saveAll(liste);
-        kisiDto.setId(kisiDb.getId());
-        return kisiDto;
+        addressRepository.saveAll(liste);
+        personDto.setId(personDb.getId());
+        return personDto;
     }
 
     @Override
@@ -62,26 +59,26 @@ public class KisiServiceImpl implements KisiService {
     }
 
     @Override
-    public List<KisiDto> getAll() {
-        List<Kisi> kisiler = kisiRepository.findAll();
-        List<KisiDto> kisiDtos = new ArrayList<>();
+    public List<PersonDto> getAll() {
+        List<Person> kisiler = personRepository.findAll();
+        List<PersonDto> personDtos = new ArrayList<>();
 
         kisiler.forEach(it -> {
-            KisiDto kisiDto =new KisiDto();
-            kisiDto.setId(it.getId());
-            kisiDto.setAdi(it.getAdi());
-            kisiDto.setSoyadi(it.getSoyadi());
-            kisiDto.setAdresler(
-                    it.getAdresleri() != null ?
-                            it.getAdresleri().stream().map(Adres::getAdres).collect(Collectors.toList())
+            PersonDto personDto =new PersonDto();
+            personDto.setId(it.getId());
+            personDto.setName(it.getName());
+            personDto.setLastName(it.getLastName());
+            personDto.setAddresses(
+                    it.getAddresses() != null ?
+                            it.getAddresses().stream().map(Address::getAddress).collect(Collectors.toList())
                             : null);
-            kisiDtos.add(kisiDto);
+            personDtos.add(personDto);
         });
-        return kisiDtos;
+        return personDtos;
     }
 
     @Override
-    public Page<KisiDto> getAll(Pageable pageable) {
+    public Page<PersonDto> getAll(Pageable pageable) {
         return null;
     }
 }

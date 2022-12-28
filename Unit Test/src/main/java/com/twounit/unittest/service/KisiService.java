@@ -1,6 +1,6 @@
 package com.twounit.unittest.service;
 
-import com.twounit.unittest.dto.KisiDto;
+import com.twounit.unittest.dto.PersonDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface KisiService {
 
-    KisiDto save(KisiDto kisiDto);
+    PersonDto save(PersonDto personDto);
 
     void delete(Long id);
 
-    List<KisiDto> getAll();
+    List<PersonDto> getAll();
 
-    Page<KisiDto> getAll(Pageable pageable);
+    Page<PersonDto> getAll(Pageable pageable);
 }
