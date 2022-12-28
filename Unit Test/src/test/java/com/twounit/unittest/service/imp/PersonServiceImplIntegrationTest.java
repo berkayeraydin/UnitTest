@@ -3,7 +3,7 @@ package com.twounit.unittest.service.imp;
 import com.twounit.unittest.dto.PersonDto;
 import com.twounit.unittest.entity.Address;
 import com.twounit.unittest.repo.AddressRepository;
-import com.twounit.unittest.service.KisiService;
+import com.twounit.unittest.service.PersonServices;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 public class PersonServiceImplIntegrationTest {
+    // IntegrationTest Baştan sonra controller -> servicess -> repo ... çalışmasını sağlıyor.
 
     @Autowired
-    private KisiService kisiService;
+    private PersonServices personServices;
     @Autowired
     private AddressRepository addressRepository;
 
@@ -30,9 +31,8 @@ public class PersonServiceImplIntegrationTest {
         personDto.setLastName("Eraydiin");
         personDto.setAddresses(Arrays.asList("İstanbul"));
 
-        PersonDto result = kisiService.save(personDto);
+        PersonDto result = personServices.save(personDto);
         List<Address> adresses = addressRepository.findAll();
-
 
         assertTrue(result.getId() > 0L);
         assertEquals(adresses.size() , 1);

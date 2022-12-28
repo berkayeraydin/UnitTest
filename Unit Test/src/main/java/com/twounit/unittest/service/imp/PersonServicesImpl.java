@@ -10,7 +10,7 @@ import com.twounit.unittest.entity.Address;
 import com.twounit.unittest.entity.Person;
 import com.twounit.unittest.repo.AddressRepository;
 import com.twounit.unittest.repo.PersonRepository;
-import com.twounit.unittest.service.KisiService;
+import com.twounit.unittest.service.PersonServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +20,7 @@ import org.springframework.util.Assert;
 
 @Service
 @RequiredArgsConstructor
-public class KisiServiceImpl implements KisiService {
+public class PersonServicesImpl implements PersonServices {
 
     private final PersonRepository personRepository;
     private final AddressRepository addressRepository;

@@ -57,6 +57,7 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- Burası olmalı -> Mockito, Junit 5, Jupiter vb. Libraries geliyor -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

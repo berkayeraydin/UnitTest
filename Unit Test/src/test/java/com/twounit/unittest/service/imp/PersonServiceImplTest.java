@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class PersonServiceImplTest {
     // Ben bu nesnenin instancesini yaratmam gerekecek. Mockito burada işimize yarayacak.
     @InjectMocks
-    private KisiServiceImpl kisiService; // Bunun bir instancesini yaratır.
+    private PersonServicesImpl kisiService; // Bunun bir instancesini yaratır.
     // Hatta bunun ihtiyaç duyduğu altında alt nesneler varsa bunları mocklar.
     // KisiRepository  ve AdresRepository gibi.
     // Lakin bunları inject edebilmesi için @Mock ile belirtilmiş olması gerek.
